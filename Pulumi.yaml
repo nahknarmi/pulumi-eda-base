@@ -1,0 +1,3 @@
+name: pulumi-eda-base
+runtime: nodejs
+description: Networking, SecurityGroups etc.
