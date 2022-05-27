@@ -1,9 +1,23 @@
-import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import * as awsx from "@pulumi/awsx";
+import {Subnet, Vpc} from "@pulumi/aws/ec2";
 
-// Create an AWS resource (S3 Bucket)
-const bucket = new aws.s3.Bucket("my-bucket");
+let availabilityZones = aws.getAvailabilityZones({state: "available"});
+let vpc = new Vpc("vpc", {cidrBlock: "192.168.0.0/22"});
 
-// Export the name of the bucket
-export const bucketName = bucket.id;
+let subnetAz1 = new Subnet("subnetAz1", {
+    availabilityZone: availabilityZones.then(azs => azs.names[0]),
+    cidrBlock: "192.168.0.0/24",
+    vpcId: vpc.id
+});
+
+let subnetAz2 = new Subnet("subnetAz2", {
+    availabilityZone: availabilityZones.then(azs => azs.names[1]),
+    cidrBlock: "192.168.1.0/24",
+    vpcId: vpc.id
+});
+
+let subnetAz3 = new Subnet("subnetAz3", {
+    availabilityZone: availabilityZones.then(azs => azs.names[3]),
+    cidrBlock: "192.168.2.0/24",
+    vpcId: vpc.id
+});
