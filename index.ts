@@ -21,3 +21,8 @@ let subnetAz3 = new Subnet("subnetAz3", {
     cidrBlock: "192.168.2.0/24",
     vpcId: vpc.id
 });
+
+export const vpcId = vpc.id;
+export const subnetAz1Id = subnetAz1.id;
+export const subnetAz2Id = subnetAz2.id;
+export const subnetAz3Id = subnetAz3.id;
